@@ -1,5 +1,4 @@
-
-from django.core.exceptions import ValidationError #type:ignore
+from django.core.exceptions import ValidationError
 
 from .test_recipe_base import RecipeTestBase
 
