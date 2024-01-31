@@ -1,4 +1,4 @@
-from django.urls import resolve, reverse
+from django.urls import resolve, reverse #type:ignore
 from recipes import views
 
 from .test_recipe_base import RecipeTestBase
