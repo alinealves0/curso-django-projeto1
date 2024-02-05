@@ -7,6 +7,11 @@ from utils.pagination import make_pagination #type:ignore
 
 from recipes.models import Recipe
 
+import os
+
+
+PER_PAGE = os.environ.get('PER_PAGE', 6)
+
 def home(request):
     recipes = Recipe.objects.filter(
         is_published=True,
@@ -14,7 +19,7 @@ def home(request):
 
     current_page = request.GET.get('page', 1)
 
-    page_obj, pagination_range = make_pagination(request, recipes, 3)
+    page_obj, pagination_range = make_pagination(request, recipes, PER_PAGE)
 
     return render(request, 'recipes/pages/home.html', context={
         'recipes': page_obj,
@@ -30,7 +35,7 @@ def category(request, category_id):
         ).order_by('-id')
     )
 
-    page_obj, pagination_range = make_pagination(request, recipes, 3)
+    page_obj, pagination_range = make_pagination(request, recipes, PER_PAGE)
 
     return render(request, 'recipes/pages/category.html', context={
         'recipes': page_obj,
@@ -55,7 +60,7 @@ def search(request):
         is_published=True
     ).order_by('-id')
 
-    page_obj, pagination_range = make_pagination(request, recipes, 3)
+    page_obj, pagination_range = make_pagination(request, recipes, PER_PAGE)
 
     return render(request, 'recipes/pages/search.html', {
         'page_title': f'Search for "{search_term}" |',
