@@ -1,5 +1,4 @@
 import os
-from django.contrib import messages #type:ignore
 
 from django.core.paginator import Paginator #type:ignore
 from django.db.models import Q #type:ignore
@@ -19,8 +18,7 @@ def home(request):
         is_published=True,
     ).order_by('-id')
 
-    messages.error(request, 'Epa, você foi pesquisar algo que eu vi.')
-
+   
     page_obj, pagination_range = make_pagination(request, recipes, PER_PAGE)
 
     return render(request, 'recipes/pages/home.html', context={
