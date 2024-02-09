@@ -11,7 +11,8 @@ def add_attr(field, attr_name, attr_new_val):
 def add_placeholder(field, placeholder_val):
     add_attr(field, 'placeholder', placeholder_val)
 
-
+# Validando a senha
+    
 def strong_password(password):
     regex = re.compile(r'^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9]).{8,}$')
 
