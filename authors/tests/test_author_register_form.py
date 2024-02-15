@@ -1,6 +1,5 @@
-
-from authors.forms import RegisterForm
 from django.test import TestCase #type:ignore
+from authors.forms import RegisterForm
 from parameterized import parameterized #type:ignore
 
 
