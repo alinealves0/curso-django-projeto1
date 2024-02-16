@@ -1,21 +1,17 @@
 import re
 from django import forms #type:ignore
 from django.contrib.auth.models import User #type:ignore
-from django.core.exceptions import ValidationError#type:ignore
+from django.core.exceptions import ValidationError #type:ignore
 
 def add_attr(field, attr_name, attr_new_val):
     existing = field.widget.attrs.get(attr_name, '')
     field.widget.attrs[attr_name] = f'{existing} {attr_new_val}'.strip()
 
-
 def add_placeholder(field, placeholder_val):
     add_attr(field, 'placeholder', placeholder_val)
 
-# Validando a senha
-    
 def strong_password(password):
     regex = re.compile(r'^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9]).{8,}$')
-
     if not regex.match(password):
         raise ValidationError((
             'Password must have at least one uppercase letter, '
@@ -23,8 +19,9 @@ def strong_password(password):
             'at least 8 characters.'
         ),
             code='invalid'
-        )    
-
+        )
+    
+        
 class RegisterForm(forms.ModelForm):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
@@ -34,7 +31,6 @@ class RegisterForm(forms.ModelForm):
         add_placeholder(self.fields['last_name'], 'Ex.: Doe')
         add_placeholder(self.fields['password'], 'Type your password')
         add_placeholder(self.fields['password2'], 'Repeat your password')
-
     password = forms.CharField(
         required=True,
         widget=forms.PasswordInput(),
@@ -73,22 +69,23 @@ class RegisterForm(forms.ModelForm):
             'email': 'E-mail',
             
         }
+
         help_texts = {
             'email': 'The e-mail must be valid.',
         }
+
         error_messages = {
             'username': {
                 'required': 'This field must not be empty',
             }
         }
-        
-       
+
+    
     def clean(self):
         cleaned_data = super().clean()
 
         password = cleaned_data.get('password')
         password2 = cleaned_data.get('password2')
-
         if password != password2:
             password_confirmation_error = ValidationError(
                 'Password and password2 must be equal',
