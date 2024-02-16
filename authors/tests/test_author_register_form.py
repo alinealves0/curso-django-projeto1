@@ -1,4 +1,4 @@
-from django.test import TestCase #type:ignore
+from unittest import TestCase #type:ignore
 from authors.forms import RegisterForm
 from parameterized import parameterized #type:ignore
 
