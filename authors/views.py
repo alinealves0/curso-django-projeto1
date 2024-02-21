@@ -1,6 +1,6 @@
 from django.contrib import messages #type:ignore
 from django.http import Http404 #type:ignore
-from django.shortcuts import render #type:ignore
+from django.shortcuts import redirect, render #type:ignore
 
 from .forms import RegisterForm
 
@@ -25,4 +25,4 @@ def register_create(request):
 
         del(request.session['register_form_data'])
 
-    return redirect('authors:register') #type:ignore
+    return redirect('authors:register') 
